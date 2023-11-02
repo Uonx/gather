@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package basic;
+
+
+option go_package = "github.com/Uonx/gather/internal/proto/basic;basic";
+
+
+message Error {
+  int64 code = 1;
+  string message = 2;
+}
+
+message Response {
+  Error error = 1;
+}
+
+
+message Worker {
+  string WorkerName = 1;  
+  string WorkerId = 2; 
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package v1;
+
+import "internal/proto/basic/basic.proto";
+
+option go_package = "github.com/Uonx/gather/internal/proto/v1;v1";
+
+message Task{
+    int64 Id = 1;
+    string Url = 2;
+    string Auth = 3;
+    string Proxy = 4;
+    string Template = 5;
+    int64 TaskId = 6;
+    string Params = 7;
+}
+
+message Item {
+    string  Url = 1;
+	Task   Task = 2;
+	string PayLoad =3;
+}
+
+message Result {
+    basic.Response Response = 1;
+    Task CurrentTask = 2;
+    repeated Task Tasks = 3;
+    repeated Item Items = 4;
+}
+
+service TemplateTaskEvent {
+    rpc TemplateResult (Task) returns (Result) {};
+}

@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package v1;
+
+import "internal/proto/v1/template_task.proto";
+import "internal/proto/basic/basic.proto";
+
+option go_package = "github.com/Uonx/gather/internal/proto/v1;v1";
+
+message Health {
+    string Name = 1;
+    int64 Status = 2;
+}
+
+message Work {
+    string Name = 1;
+    string Ip = 2;
+    repeated string Templates = 3;
+}
+
+message RegisterEvent {
+    Work Work = 1;
+}
+  
+message Execution {
+    string Category = 1;
+    string Data = 2;
+}
+
+service SchedulerEvent {
+    rpc Registry (RegisterEvent) returns (stream Execution) {};
+    rpc HealthResult (Health) returns (stream basic.Response) {};
+    rpc WorkResult (Result) returns (basic.Response) {};
+}
